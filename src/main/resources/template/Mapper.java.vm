@@ -1,0 +1,21 @@
+package ${package}.${moduleName}.mapper;
+
+import org.springframework.stereotype.Repository;
+import tk.mybatis.mapper.common.Mapper;
+import ${package}.${moduleName}.entity.${attrNameCapital};
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * @author ${author}
+ * @version 1.0
+ * @description ${tableComment}
+ * @date ${datetime}
+ */
+@Repository
+public interface ${attrNameCapital}Mapper extends Mapper<${attrNameCapital}> {
+
+
+    List<${attrNameCapital}Entity> selectByLib(Map<String, Object> qryMap);
+}

@@ -1,0 +1,110 @@
+package ${package}.${moduleName}.controller;
+
+import com.dwyinyuan.generate.model.dto.Page;
+import com.dwyinyuan.generate.model.dto.PageResponseResult;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import ${package}.${moduleName}.service.${attrNameCapital}Service;
+import ${package}.${moduleName}.entity.${attrNameCapital};
+
+import java.util.HashMap;
+import java.util.Map;
+import javax.validation.Valid;
+
+/**
+ * @author ${author}
+ * @version 1.0
+ * @description ${tableComment}
+ * @date ${datetime}
+ */
+@Api(value = "${tableComment}", tags = "${tableComment}")
+@RestController
+@RequestMapping("/${attrNameLowerCase}")
+public class ${attrNameCapital}Controller {
+
+    @Autowired
+    private ${attrNameCapital}Service ${attrNameLowerCase}Service;
+
+    /**
+     * 分页查询
+     * @return
+     */
+    @ApiOperationSupport(author = "${author}")
+    @GetMapping("/selectByPage")
+    @ApiOperation(value = "分页查询数据库信息", tags = "")
+    public PageUtils selectByPage(
+            @RequestParam(value = "pageNow", required = false) Integer pageNow,
+            @RequestParam(value = "pageSize", required = false) Integer pageSize,
+            @RequestParam(value = "sort", required = false) Integer sort,
+            @RequestParam(value = "comment", required = false) String comment,
+            @RequestParam(value = "startTime", required = false) String startTime,
+            @RequestParam(value = "endTime", required = false) String endTime
+    ) {
+        Map<String, Object> qryMap = new HashMap<>(8);
+        Page page = new Page();
+        if (pageNow != null) {
+            page.setPageNow(pageNow);
+        }
+        if (pageSize != null) {
+            page.setPageSize(pageSize);
+        }
+        qryMap.put("pageIndex", page.getPageIndex());
+        qryMap.put("pageSize", page.getPageSize());
+        if (sort != null) {
+            qryMap.put("sort", sort);
+        } else {
+            qryMap.put("sort", 1);
+        }
+        if (comment != null) {
+            qryMap.put("comment", comment);
+        }
+        return ${attrNameLowerCase}Service.selectByPage(qryMap);
+    }
+
+    /**
+     * 根据主键查询单个信息
+     * @return
+     */
+    @ApiOperationSupport(author = "${author}")
+    @ApiOperation(value = "根据主键查询单个信息", tags = "")
+    @GetMapping("/info/{${primarykey.columnName}}")
+    public ${attrNameCapital} findUserAdminById(@PathVariable("${primarykey.attrNameLowerCase}")String ${primarykey.attrNameLowerCase}) {
+        return ${attrNameLowerCase}Service.selectByKey(${primarykey.attrNameLowerCase});
+    }
+
+    /**
+     * 保存记录
+     * @return
+     */
+    @ApiOperation(value = "保存记录", tags = "")
+    @ApiOperationSupport(author = "${author}")
+    @PostMapping("/save")
+    public int save(@RequestBody ${attrNameCapital} ${attrNameLowerCase}Entity) {
+        return ${attrNameLowerCase}Service.save(${attrNameLowerCase}Entity);
+    }
+
+    /**
+     * 修改记录
+     * @return
+     */
+    @ApiOperation(value = "修改记录", tags = "")
+    @ApiOperationSupport(author = "${author}")
+    @PostMapping("/update")
+    public void update(@RequestBody ${attrNameCapital} ${attrNameLowerCase}Entity) {
+            ${attrNameLowerCase}Service.updateNotNull(${attrNameLowerCase}Entity);
+    }
+
+    /**
+     * 删除
+     * @return
+     */
+    @ApiOperation(value = "删除", tags = "")
+    @ApiOperationSupport(author = "${author}")
+    @GetMapping("/delete")
+    public void delete(@RequestParam("ids") String  ${primarykey.columnName}s) {
+            ${attrNameLowerCase}Service.backDelete(${primarykey.columnName}s);
+    }
+}

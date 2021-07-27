@@ -1,0 +1,29 @@
+package  ${package}.${moduleName}.service;
+
+import ${package}.${moduleName}.pojo.${attrNameCapital};
+import com.dwyinyuan.generate.base.BaseService
+import com.dwyinyuan.generate.model.dto.PageResponseResult
+
+import java.util.Map;
+
+/**
+ * @author ${author}
+ * @version 1.0
+ * @description ${tableComment}
+ * @date ${datetime}
+ */
+public interface ${attrNameCapital}Service extends BaseService<${attrNameCapital}> {
+
+    /**
+    * 分页查询
+    * @param qryMap
+    * @return
+    */
+    PageResponseResult selectByPage(Map<String, Object> qryMap);
+
+    /**
+    * 批量软删除
+    * @param pkIds
+    */
+    void backDelete(String pkIds);
+}

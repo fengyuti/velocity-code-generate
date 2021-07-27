@@ -1,0 +1,50 @@
+package ${package}
+
+import com.dwyinyuan.generate.base.BaseServiceImpl;
+import com.dwyinyuan.generate.model.dto.PageResponseResult;
+import com.dwyinyuan.generate.service.${attrNameCapital}Service;
+import com.dwyinyuan.generate.utils.StringUtils;
+import com.github.pagehelper.PageHelper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.Map;
+
+import ${package}.${moduleName}.pojo.${attrNameCapital};
+import ${package}.${moduleName}.mapper.${attrNameCapital}Mapper;
+
+/**
+ * @author ${author}
+ * @version 1.0
+ * @description ${tableComment}
+ * @date ${datetime}
+ */
+@Service
+public class ${attrNameCapital}ServiceImpl extends BaseServiceImpl<${attrNameCapital}> implements ${attrNameCapital}Service {
+
+    @Autowired
+    private ${attrNameCapital}Mapper ${attrNameLowerCase}Mapper;
+
+    /**
+     * @author 公众号:笛舞音缘
+     * @version 1.0
+     * @description 分页查询
+     * @date 2021/7/27
+     */
+    @Override
+    public PageResponseResult selectByPage(Map<String, Object> qryMap) {
+        PageHelper.startPage(StringUtils.stringToInt(qryMap.get("pageIndex")), StringUtils.stringToInt(qryMap.get("pageSize")));
+        return new PageResponseResult(StringUtils.stringToInt(qryMap.get("pageIndex")), ${attrNameLowerCase}Mapper.selectByLib(qryMap));
+    }
+
+    /**
+     * @author 公众号:笛舞音缘
+     * @version 1.0
+     * @description 根据id批量软删除
+     * @date 2021/7/27
+     */
+    @Override
+    public void backDelete(String pkIds) {
+
+    }
+}

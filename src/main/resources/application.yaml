@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: velocity-code-generate
+  profiles:
+    active: dev
+server:
+  port: 8081
+  maxHttpHeaderSize: 1024000
+
+mybatis:
+  mapper-locations: classpath*:mapper/*.xml
+  configuration:
+   log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

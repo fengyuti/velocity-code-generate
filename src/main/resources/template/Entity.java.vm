@@ -1,0 +1,28 @@
+package ${package}.${moduleName}.pojo;
+
+import lombok.Data;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.Serializable;
+
+/**
+ * @author ${author}
+ * @table ${tableName}
+ * @version 1.0
+ * @description ${tableComment}
+ * @date ${datetime}
+ */
+@Data
+@ApiModel(value = "${tableComment}")
+public class  ${attrNameCapital}Entity implements Serializable {
+
+    private static final long serialVersionUID = 1621491296525L;
+
+    #foreach ($column in $columnEntityList)
+        /**
+         *  $column.columnComment
+         */
+        @ApiModelProperty(value = "$column.columnComment")
+        private #if($column.extra == "array")List<#end$column.attrType#if($column.extra == "array")>#end $column.attrNameLowerCase;
+    #end
+}

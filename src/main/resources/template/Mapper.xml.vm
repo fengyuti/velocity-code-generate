@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="${package}.${moduleName}.mapper.${attrNameCapital}Mapper">
+
+    <resultMap type="${package}.${moduleName}.pojo.${attrNameCapital}" id="${attrNameLowerCase}Map">
+        #foreach($column in $columnEntityList)
+            <result property="${column.attrNameLowerCase}" column="${column.columnName}"/>
+        #end
+    </resultMap>
+
+    <sql id="Base_Column_List">
+            #foreach($column in $columnEntityList)
+                ${column.columnName},
+            #end
+    </sql>
+
+
+    <select id="selectByLib" resultMap="${attrNameLowerCase}Map">
+        select ${tableName}.* from ${tableName} where is_delete = 0
+            <if test="keyWord != null">
+
+            </if>
+            <if test="startTime != null and endTime != null">
+                and date_format(create_time, '%Y-%m-%d') between startTime and endTime
+            </if>
+            <if test="sort != null">
+                order by update_time desc
+            </if>
+    </select>
+
+</mapper>
